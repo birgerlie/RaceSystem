@@ -10,7 +10,7 @@ import tornado.websocket
 
 from tornado.options import define, options
 
-define("port", default=5000, help="run on the given port", type=int)
+define("port", default=8080, help="run on the given port", type=int)
 
 
 WEBSOCKS = []
@@ -19,23 +19,20 @@ class MainHandler(tornado.web.RequestHandler):
         self.redirect("/static/map.html")
 
 class PositionHandler(tornado.web.RequestHandler):
-    def get(self):
-        lat =  self.get_argument("lat")
-        lon = self.get_argument("lon")
-        print lat,lon
-	
     def post(self):
         global WEBSOCKS
         
         lat =  self.get_argument("lat")
         lng = self.get_argument("lng")
-        
-        latlng ={
-        'lat':lat,
-        'lng':lng,
-        'device': 'foo'
-        }
-        data = json.dumps(latlng)
+        gps_info = {
+	'lat':self.get_argument("lat"),
+	'lng':self.get_argument("lng"),
+	'hdg':self.get_argument("hdg"),
+	'speed':self.get_argument("speed"),
+	'utc' : self.get_argument("time") 
+	}
+	
+        data = json.dumps(gps_info)
         print data
         for sock in WEBSOCKS:
             sock.write_message(data)

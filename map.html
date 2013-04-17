@@ -30,7 +30,7 @@
             var sock;
             $(document).ready(function(){
                               sock = new WebSocket("ws://../sock");
-                              sock = new WebSocket("ws://evening-headland-5588.herokuapp.com/sock");
+                              sock = new WebSocket("ws://ec2-50-16-132-89.compute-1.amazonaws.com:8080/sock");
                               sock.onopen = function(){ console.log("Connected websocket"); };
                               sock.onerror = function(){ console.log("Websocket error"); };
                               
