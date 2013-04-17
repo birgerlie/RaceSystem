@@ -44,9 +44,6 @@ class PositionHandler(tornado.web.RequestHandler):
 
 
 class WebSocketBroadcaster(tornado.websocket.WebSocketHandler):
-#    def __init__(self):
-#        super(EchoWebSocket,self).__init__(*args, **kwargs)
-
     def open(self):
         print "open socket %r" % self
         global WEBSOCKS
