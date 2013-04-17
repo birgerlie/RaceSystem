@@ -8,6 +8,10 @@ import tornado.ioloop
 import tornado.web
 import tornado.websocket
 
+from tornado.options import define, options
+
+define("port", default=5000, help="run on the given port", type=int)
+
 
 WEBSOCKS = []
 class MainHandler(tornado.web.RequestHandler):
@@ -60,15 +64,21 @@ settings = {
   'static_path': os.path.join(os.path.dirname(os.path.abspath(__file__)), ""),
 }
 
-
+tornado.options.parse_command_line()
 application = tornado.web.Application([
                             (r"/", MainHandler),
                             (r"/sock", WebSocketBroadcaster),	
                             (r"/pos", PositionHandler)           
                             ],
                             **settings)
-print settings
+
 
 if __name__ == "__main__":
-    application.listen(8888)
+    application.listen(tornado.options.options.port)
     tornado.ioloop.IOLoop.instance().start()
+
+
+
+
+
+
