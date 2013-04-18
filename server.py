@@ -1,19 +1,42 @@
-import tornado.ioloop
-import tornado.web
+#!/usr/bin/env python
+
 import os
 import json
 import logging
+import unicodedata
 
+
+import tornado.auth
+import tornado.httpserver
+# import tornado.options
 import tornado.ioloop
 import tornado.web
 import tornado.websocket
 
 from tornado.options import define, options
+from pymongo import MongoClient, GEO2D
+
 
 define("port", default=8080, help="run on the given port", type=int)
 
 
 WEBSOCKS = []
+
+
+class BaseHandler(tornado.web.RequestHandler):
+    @property
+    def db(self):
+        return self.application.db
+
+
+class ListHandler(BaseHandler):
+    def get(self):
+        items = ['item 1', 'item 2', 'item 3']
+        self.render('race.html', title='Show races', items=items)
+
+
+
+
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
         self.redirect("/static/map.html")
@@ -54,23 +77,39 @@ class WebSocketBroadcaster(tornado.websocket.WebSocketHandler):
         global WEBSOCKS
         WEBSOCKS.remove(self)
         
-settings = {
-  'static_path': os.path.join(os.path.dirname(os.path.abspath(__file__)), ""),
-}
-
 tornado.options.parse_command_line()
-application = tornado.web.Application([
-                            (r"/", MainHandler),
-                            (r"/sock", WebSocketBroadcaster),	
-                            (r"/pos", PositionHandler)           
-                            ],
-                            **settings)
+
+class Application(tornado.web.Application):
+    def __init__(self):
+        handlers=[
+                        (r'/', ListHandler),
+                        (r"/race", MainHandler),
+                        (r"/sock", WebSocketBroadcaster),   
+                        (r"/pos", PositionHandler),
+                ]
+
+        settings=dict(
+                     static_path=os.path.join(os.path.dirname(__file__), "static"),
+                     template_path=os.path.join(os.path.dirname(__file__), "templates"),
+                     debug=True
+                    )                
+
+        tornado.web.Application.__init__(self, handlers, **settings)
+        self.db = MongoClient().race_data
+        self.db.places.create_index([("loc", GEO2D)])
+
+
+
+
+def main():
+    tornado.options.parse_command_line()
+    http_server = tornado.httpserver.HTTPServer(Application())
+    http_server.listen(options.port)
+    tornado.ioloop.IOLoop.instance().start()            
 
 
 if __name__ == "__main__":
-    application.listen(tornado.options.options.port)
-    tornado.ioloop.IOLoop.instance().start()
-
+    main()
 
 
 
