@@ -1,6 +1,4 @@
 #!/usr/bin/env python
-
-
 from handlers.base import BaseHandler
 
 

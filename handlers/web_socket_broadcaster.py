@@ -2,8 +2,8 @@
 
 import tornado.websocket
 
-
 class WebSocketBroadcasterHandler(tornado.websocket.WebSocketHandler):
+
     def open(self):
         print "open socket %r" % self
         global WEBSOCKS
@@ -16,3 +16,8 @@ class WebSocketBroadcasterHandler(tornado.websocket.WebSocketHandler):
         print "closed socket %r " % self    
         global WEBSOCKS
         WEBSOCKS.remove(self)
+
+
+    @property
+    def db(self):
+        return self.application.db

@@ -1,5 +1,5 @@
 RaceSystem
+Website and app for tracking and displaying android phones on a map based on multiple events
 
-App URL http://race-server.herokuapp.com/
-Git URL git@heroku.com:race-server.git  
+
 ==========

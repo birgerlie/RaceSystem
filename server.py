@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
-import os
-import json
+#import os
+#import json
 import logging
 import unicodedata
 
@@ -16,8 +16,6 @@ import tornado.websocket
 from tornado.options import define, options
 from pymongo import MongoClient, GEO2D
 
-
-import race_create_handler
 from settings import settings
 from urls import url_patterns
 

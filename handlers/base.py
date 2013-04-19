@@ -1,8 +1,5 @@
 #!/usr/bin/env python
 import tornado.web
-import tornado.websocket
-
-
 
 class BaseHandler(tornado.web.RequestHandler):
     @property
