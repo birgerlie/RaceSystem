@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block body %}
+<ul>	
+  {% for event in events %}
+		<li>{{ escape(event) }}</li>
+  {% end %}
+  </ul>
+  <div><a href="/archive">{{ _("Archive") }}</a></div>
+{% end %}
+

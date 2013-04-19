@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+
+{% block body %}
+  <form action="{{ request.path }}" method="post" class="compose">
+    <div style="margin-bottom:5px"><input name="title" type="text" class="title" value="{{ race.title if race else "" }}"/></div>
+    <div style="margin-bottom:5px"><textarea name="desc" rows="30" cols="40" class="markdown">{{ race.desc if race else "" }}</textarea></div>
+    <div style="margin-bottom:5px"><input type="checkbox" name="started" value="{{ race.stared if race else "" }}">Started<br></div>
+    <div>
+      <input type="submit" value="{{ _("Save changes") if race else _("Create Race") }}" class="submit"/>
+      
+    </div>
+    {% if race %}
+      <input type="hidden" name="_id" value="{{ race._id }}"/>
+    {% end %}
+    {% module xsrf_form_html() %}
+  </form>
+{% end %}
+

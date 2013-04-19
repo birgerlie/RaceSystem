@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{ escape(handler.settings["site_title"]) }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    
+    <link rel="stylesheet" href="{{ static_url("css/bootstrap.min.css") }}" type="text/css" media="screen"/>
+
+  </head>
+  <body>
+    <div class='hero-unit'>
+      <h1>Track your status with your android phone</h1>
+    </div>  
+    <div class="container">
+      <div id="content">{% block body %}{% end %}</div>
+    </div>
+
+
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="{{ static_url("js/bootstrap.min.js") }}"></script>
+  </body>
+</html>

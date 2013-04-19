@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block body %}
+<ul>	
+  {% for race in events %}
+		<li id={{race['_id']}}><div>{{ escape(race['title']) }}</div></li>
+  {% end %}
+  </ul>
+{% end %}
