@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block head %}
+     <script type="text/javascript" src="{{ static_url("js/competitor.js")}}"></script>
+     <script type="text/javascript" src="{{ static_url("js/display.js")}}"></script>
+     <script type="text/javascript" src="{{ static_url("js/socket.js")}}"></script>
+{% end %}    
+
+{% block body %}
+
+<style type="text/css">
+  .map{
+    border: 1px solid #e3e3e3; 
+    position: absolute;
+  }
+  .coolbox {
+  background: white;
+  padding: 10px;
+  margin: 2px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  margin-left: 5px;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  color: #333;
+}
+}      
+</style>
+
+<script type="text/javascript">
+  var map;
+  var sock;
+
+  $(document).ready(function(){
+   map = new GMaps({
+    div: '#basic_map',
+    lat:   59.445075,
+    lng:  10.250244,
+    zoom: 9,
+    zoomControl : true,
+    zoomControlOpt: {
+        style : 'SMALL',
+        position: 'TOP_RIGHT'
+    },
+    panControl : false,
+  });
+   socketConnection();
+});
+
+</script>
+
+<div class="row main" >
+  <div class="span12 container">
+    <div class="span9 box pull-left map" style="height:800px" id="basic_map"></div>
+    <div class="span3 pull-right " id="display"></div>
+  </div>
+</div>
+
+{% end %}
+
+
+
+
+

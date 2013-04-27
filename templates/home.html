@@ -1,9 +1,86 @@
 {% extends "base.html" %}
 
 {% block body %}
-<ul>	
-  {% for race in events %}
-		<li id={{race['_id']}}><div>{{ escape(race['title']) }}</div></li>
-  {% end %}
-  </ul>
+  
+{% end %}
+
+{% block body %}
+  <style type="text/css">
+      body {
+        padding-top: 20px;
+        padding-bottom: 40px;
+      }
+
+      /* Custom container */
+      .container-narrow {
+        margin: 0 auto;
+        max-width: 700px;
+      }
+      .container-narrow > hr {
+        margin: 30px 0;
+      }
+
+      /* Main marketing message and sign up button */
+      .jumbotron {
+        margin: 60px 0;
+        text-align: center;
+      }
+      .jumbotron h1 {
+        font-size: 72px;
+        line-height: 1;
+      }
+      .jumbotron .btn {
+        font-size: 21px;
+        padding: 14px 24px;
+      }
+
+      /* Supporting marketing content */
+      .marketing {
+        margin: 60px 0;
+      }
+      .marketing p + h4 {
+        margin-top: 28px;
+      }
+    </style>
+
+    <div  class="container-narrow">
+ <div class="jumbotron">
+        <h1>Real time GPS Tracking using android </h1>
+        <p class="lead">Create a competition and wach how the contestants perform in real time. Using an android phone, the position, bearing and speed are broadcasted for everyone to watch</p>
+        <a class="btn btn-large btn-success" href="/create">Create a Race</a>
+</div>
+
+<div class="row">
+	<div class="span12">
+					
+				{% for race in events %}
+				<div class="well">
+						<table style="width:100%">
+							<tbody>
+								<tr class="lead">
+									<td ><h4>{{ escape(race['title']) }}</h4></td>
+									<td >{{ escape(race['desc']) }}</td>
+									<td >{{ escape(race['creator']) }}</td>
+									<td class="pull-right"><a href="/race" class="btn btn-success">View Race</a>&nbsp;<a href="/create" class="btn btn-primary">Edit Race</a></td>
+
+
+
+								</tr>
+								
+							</tbody>
+						</table>
+
+						
+						
+						
+					</div>
+		{% end %}
+		</div>
+		
+	</div>
+</div>
+</div>
+
+
+  
 {% end %}

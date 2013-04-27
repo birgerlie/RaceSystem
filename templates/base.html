@@ -3,21 +3,34 @@
   <head>
     <title>{{ escape(handler.settings["site_title"]) }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Bootstrap -->
     
     <link rel="stylesheet" href="{{ static_url("css/bootstrap.min.css") }}" type="text/css" media="screen"/>
+        <script type="text/javascript" src="{{ static_url('js/jquery-1.9.1.min.js') }}"></script>
+        
+        <script type="text/javascript"
+        src="http://www.google.com/jsapi?autoload={'modules':[{name:'maps',version:3,other_params:'sensor=false'}]}"></script>
+        <script type="text/javascript" src="{{ static_url("js/gmaps.js")}}"></script>
+
+          {% block head %}
+
+          {% end %}
 
   </head>
   <body>
-    <div class='hero-unit'>
-      <h1>Track your status with your android phone</h1>
-    </div>  
-    <div class="container">
-      <div id="content">{% block body %}{% end %}</div>
+    <div>
+    <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li class="active"><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+        <h3 class="muted">Race Tracker</h3>
     </div>
 
+      <hr>
+      {% block body %}
 
-    <script src="http://code.jquery.com/jquery.js"></script>
-    <script src="{{ static_url("js/bootstrap.min.js") }}"></script>
+      {% end %}
+
   </body>
 </html>
