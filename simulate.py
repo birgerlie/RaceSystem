@@ -76,24 +76,6 @@ def create_data(last_pos):
 	return last_pos
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 if __name__ == "__main__":
 	
 
@@ -130,12 +112,13 @@ if __name__ == "__main__":
 	       }
 	]
 
-	server = "localhost:8080"
-	#server = "ec2-50-16-132-89.compute-1.amazonaws.com:8080"
+	#server = "localhost:8080"
+	server = "ec2-50-16-132-89.compute-1.amazonaws.com:8080"
 	conn = httplib.HTTPConnection(server)
-
+	print 'server:' , server
 	count = 0
 	while(True):
+
 		conn = httplib.HTTPConnection(server)
 		i = count % len(boats)
 		boats[i] = create_data(boats[i])
