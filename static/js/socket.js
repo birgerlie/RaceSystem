@@ -17,8 +17,7 @@ function socketConnection(){
 		pos = new google.maps.LatLng(data.lat, data.lng)
 		exist = false;
 
-		for (var i = 0; i < competitors.length ;i++) {
-			
+		for (var i = 0; i < competitors.length ;i++) {		
 			if(competitors[i].id === data.id){
 				competitors[i].setPosition(pos);	
 			}

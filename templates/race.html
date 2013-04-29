@@ -4,6 +4,8 @@
      <script type="text/javascript" src="{{ static_url("js/competitor.js")}}"></script>
      <script type="text/javascript" src="{{ static_url("js/display.js")}}"></script>
      <script type="text/javascript" src="{{ static_url("js/socket.js")}}"></script>
+     <script type="text/javascript" src="http://www.google.com/jsapi?autoload={'modules':[{name:'maps',version:3,other_params:'sensor=true'}]}"></script>
+     <script type="text/javascript" src="{{ static_url("js/gmaps.js")}}"></script>
 {% end %}    
 
 {% block body %}
@@ -11,7 +13,6 @@
 <style type="text/css">
   .map{
     border: 1px solid #e3e3e3; 
-    position: absolute;
   }
   .coolbox {
   background: white;
@@ -26,6 +27,9 @@
   font-size: 14px;
   line-height: 20px;
   color: #333;
+}
+.number{
+  font-size: 13px;
 }
 }      
 </style>
@@ -53,9 +57,9 @@
 </script>
 
 <div class="row main" >
-  <div class="span12 container">
-    <div class="span9 box pull-left map" style="height:800px" id="basic_map"></div>
-    <div class="span3 pull-right " id="display"></div>
+  <div class="container-fluid">
+    <div class="span10 box pull-left map" style="height:800px" id="basic_map"></div>
+    <div class="span5 pull-right display" id="display"></div>
   </div>
 </div>
 

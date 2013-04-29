@@ -2,27 +2,44 @@
 
 var competitors = []
 
-function Competitor(id, position, color){
-	if(color === undefined){
-		color = function() {
+
+function getCompetitor(id){
+  var retval = undefined;
+  for (var i = 0; i < competitors.length ;i++) {    
+        if(competitors[i].id == id){
+        retval =  competitors[i];
+        break;
+      }
+    };
+    return retval;
+}
+
+
+function random_color() {
     var letters = '0123456789ABCDEF'.split('');
     var color = '#';
     for (var i = 0; i < 6; i++ ) {
-        color += letters[Math.round(Math.random() * competitors.length)];
+        color += letters[Math.round(Math.random()*1000000 %15)];
     }
+    
     return color;
 }
-	}
 
+ shape =  {
+      coord: [1, 1, 1, 20, 18, 20, 18 , 1],
+      type: 'poly'
+  };
+
+function Competitor(id, position){
+	this.color = random_color();
 	this.position=position;
 	this.id = id;
-	this.color = color;
 	this.line  = undefined;
 	this.path = [];
 	this.symbol = {
     path: google.maps.SymbolPath.CIRCLE,
     scale: 8,
-    strokeColor: this.color   
+    strokeColor: this.color
   };
   this.path.push(this.position);
   
@@ -30,6 +47,11 @@ function Competitor(id, position, color){
   // competitors[this.id] = this
   // console.log(competitors)
 }
+
+Competitor.prototype.getColor = function() {
+  return this.color;
+};
+
 
 Competitor.prototype.toString = function() {
 	return (this.id + ' ' + this.color);
@@ -51,44 +73,39 @@ Competitor.prototype.setPosition = function(newpos) {
 
 		this.line = new google.maps.Polyline({
 		    path: this.path,
-		    strokeColor: "#F4B741",
-		    strokeOpacity: 0.5,
+		    strokeColor:  this.getColor(),
+		    strokeOpacity: 1,
 		    strokeWeight: 2,
+        click:  function(){ alert('test')},
+        shape:shape,
 		    icons: [{
 		      icon: this.symbol,
-		      offset: '100%'
+		      offset: '100%',
 		    }],
 		    map: map.map
 		});
 	}
   
-  // mLat = 0
-  // mLng = 0
-  
-  // for (var i = 0; i < competitors.length; i++) {
-  // 	if(competitors[i].position)
-  // }
-
   this.animate();	
-
 };
 
 Competitor.prototype.animate = function() {
 	var count = 0;
     var offsetId  = 0;
+    len = competitors.length;
     
     offsetId = window.setInterval(function() {
     
       count = (count + 1) ;
       if (count < 100){
-      	
-      	for (var i = 0; i < competitors.length; i++) {
-      		var icons = competitors[i].line.get('icons');
-      		icons[0].offset = '100%' //(count / 2) + '%';		
-      		competitors[i].line.set('icons', icons);
+      	 for (var i = 0; i < len; i++) {
+          if(competitors[i].line != undefined){
+            var icons = competitors[i].line.get('icons');
+            icons[0].offset = '100%'
+            competitors[i].line.set('icons', icons);
+          }
 
       	};
-       // this.line.set('icons', icons);
       }
       else{
           window.clearInterval(offsetId);
