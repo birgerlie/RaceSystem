@@ -68,6 +68,7 @@ Competitor.prototype.getSymbol = function() {
 Competitor.prototype.setPosition = function(newpos) {
 	
 	this.path.push(newpos)
+  this.position = newpos;
 
 	if(this.line === undefined){
 

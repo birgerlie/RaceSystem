@@ -9,18 +9,11 @@ function num(n){
 	return v + '.' + dec;
 }
 
-
-comp = undefined
 function senterMap(c){
-	
 	competitor = getCompetitor(c.id)
-	comp = competitor
 	if(competitor != undefined){
-		// alert('set map pos ' + c.id)	
 		map.map.panTo(competitor.position);
 	}
-
-	
 }
 
 function display_info(data){
@@ -37,18 +30,11 @@ function display_info(data){
 			competitor = getCompetitor(data.id);
 			if(competitor != undefined){
 				$('#display #' + data.id).css('border-color', competitor.getColor() )
-
 			}
 			
 	}
 
-
-	
-
-
 	$( '#' + data.id + ' .speed').text(num(data.speed) + ' knots');
 	$( '#' + data.id + ' .hdg').text(num(data.hdg) + ' deg');
-
-
 }
 

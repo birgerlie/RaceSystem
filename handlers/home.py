@@ -7,6 +7,7 @@ class HomeHandler(BaseHandler):
     def get(self):
         items=self.db.race.find()
 
-        print items[0]
+        if items == None:
+        	items = []
 
         self.render('home.html', title='Show races', events=items)
