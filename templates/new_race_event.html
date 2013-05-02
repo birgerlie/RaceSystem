@@ -24,9 +24,9 @@
               <div ><input name="title" type="text" class="title" value="{{ race.title if race else "race name..." }}"/></div>
               <div ><textarea name="desc" rows="10" cols="10" class="markdown">{{ race.desc if race else "race description" }}</textarea></div>
               <div ><input type="checkbox" name="started" value="{{ race.stared if race else "" }}">Started<br></div>
-              <div id='start' class='btn btn-primary'>Set tart</div>
-              <div id='end' class='btn btn-primary'>Set Finish</div>
-              <div id='end' class='btn btn-primary'>Add Mark</div>
+              <div id='start' class='btn btn-primary' onClick='addMark(id)'>Set Start</div>
+              <div id='end' class='btn btn-primary'  onClick='addMark(id)'>Set Finish</div>
+              <div id='mark' class='btn btn-primary'  onClick='addMark(id)'>Add Mark</div>
               <hl></hl>
               <div>
                 <ul id="sortable">
@@ -44,7 +44,7 @@
             </form>
 
     </div>
-    <div class="span10 box pull-right map" style="height:600px" id="basic_map">
+    <div class="span10 box map" style="height:600px" id="basic_map">
 
     </div>
     

@@ -112,8 +112,8 @@ if __name__ == "__main__":
 	       }
 	]
 
-	#server = "localhost:8080"
-	server = "ec2-50-16-132-89.compute-1.amazonaws.com:8080"
+	server = "localhost:8080"
+	#server = "ec2-50-16-132-89.compute-1.amazonaws.com:8080"
 	conn = httplib.HTTPConnection(server)
 	print 'server:' , server
 	count = 0
