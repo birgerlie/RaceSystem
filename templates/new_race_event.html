@@ -1,19 +1,89 @@
 {% extends "base.html" %}
 
 
+{% block head %}
+     <script type="text/javascript" src="http://www.google.com/jsapi?autoload={'modules':[{name:'maps',version:3,other_params:'sensor=true'}]}"></script>
+      <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+      <script type="text/javascript" src="{{ static_url("js/race_create.js")}}"></script>
+     <script type="text/javascript" src="{{ static_url("js/gmaps.js")}}"></script>
+
+   
+{% end %}    
+
 {% block body %}
-  <form action="{{ request.path }}" method="post" class="compose">
-    <div style="margin-bottom:5px"><input name="title" type="text" class="title" value="{{ race.title if race else "" }}"/></div>
-    <div style="margin-bottom:5px"><textarea name="desc" rows="30" cols="40" class="markdown">{{ race.desc if race else "" }}</textarea></div>
-    <div style="margin-bottom:5px"><input type="checkbox" name="started" value="{{ race.stared if race else "" }}">Started<br></div>
-    <div>
-      <input type="submit" value="{{ _("Save changes") if race else _("Create Race") }}" class="submit"/>
-      
+
+  <style>
+        #sortable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
+        #sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 18px; }
+        #sortable li span { position: absolute; margin-left: -1.3em; }
+  </style>
+  <div class="row main" >
+  <div class="container-fluid">
+    <div class="span5 pull-left" id="race_info">
+        <form action="{{ request.path }}" method="post" class="compose">
+              <div ><input name="title" type="text" class="title" value="{{ race.title if race else "race name..." }}"/></div>
+              <div ><textarea name="desc" rows="10" cols="10" class="markdown">{{ race.desc if race else "race description" }}</textarea></div>
+              <div ><input type="checkbox" name="started" value="{{ race.stared if race else "" }}">Started<br></div>
+              <div id='start' class='btn btn-primary'>Set tart</div>
+              <div id='end' class='btn btn-primary'>Set Finish</div>
+              <div id='end' class='btn btn-primary'>Add Mark</div>
+              <hl></hl>
+              <div>
+                <ul id="sortable">
+<!--                   <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 1</li> -->
+  
+                </ul>
+              </div>
+              <div >
+                <input type="submit" value="{{ _("Save changes") if race else _("Create Race") }}" class="btn btn-success "/>
+              </div>
+              {% if race %}
+                <input type="hidden" name="_id" value="{{ race._id }}"/>
+              {% end %}
+              {% module xsrf_form_html() %}
+            </form>
+
     </div>
-    {% if race %}
-      <input type="hidden" name="_id" value="{{ race._id }}"/>
-    {% end %}
-    {% module xsrf_form_html() %}
-  </form>
+    <div class="span10 box pull-right map" style="height:600px" id="basic_map">
+
+    </div>
+    
+  </div>
+</div>
+
+
+<script type="text/javascript">
+  var map;
+  var sock;
+
+  $(document).ready(function(){
+   map = new GMaps({
+    div: '#basic_map',
+    lat:   59.445075,
+    lng:  10.250244,
+    zoom: 9,
+    zoomControl : true,
+    zoomControlOpt: {
+        style : 'SMALL',
+        position: 'TOP_RIGHT'
+    },
+    panControl : false,
+  });
+
+   // Sortable init
+   $( "#sortable" ).sortable();
+   $( "#sortable" ).disableSelection();
+    
+  });
+
+
+
+   
+
+
+</script>
+
+
+  
 {% end %}
 

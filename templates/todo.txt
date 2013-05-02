@@ -1,8 +1,6 @@
 todo:
 	create stub for mobile phone, ie generate id and speed, lat lng 
 	handle variations in position inaccuracy by avering movement on the server
-	complete animate function
-	create a sidepanel displaying info about cursors
 	use the time diff to determene the movement 
 
 
