@@ -22,8 +22,25 @@ function display_info(data){
 	if ($('#display').has("#" + data.id).length == 0)	{
 
 		var competitor_id =data.id;
-		$('#display').append('<div class="well coolbox" id='+data.id +'><a  onclick=senterMap(' + competitor_id   + ') ><table style="width:100%"><tbody>' +
-			'<tr ><td class="foo" ><div class="icon-move"></div> </td>  <td ><h4>'+data.id+'</h4></td><td class="speed number"></td><td class="hdg number"></td> <td > </td></tr></tbody></table></a></div>');
+		$('#display').append('<div class="well coolbox" id='+data.id +'><a  onclick=senterMap(' + competitor_id   + ') >
+			<table style="width:100%"><tbody>' +
+			'<tr >
+				<td class="cell-avatar" ><div class="icon-move"></div> </td>  
+				<td class="cell-name" ><h4>'+data.id+'</h4></td>
+				<td class="cell-info">
+					<ul class="infoitems">
+						<li>spd</li>
+						<li>hdg</li>
+						<li>dmg</li>
+						<li>btm</li>
+					</ul>
+				</td>
+				<td class="speed number"></td>
+				<td class="hdg number"></td> 
+				<td > </td>
+			</tr>
+			</tbody>
+			</table></a></div>');
 	}
 
 	if ($('#display ' + data.id + ' .color').length == 0)	{
