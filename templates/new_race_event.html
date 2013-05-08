@@ -5,14 +5,8 @@
      <script type="text/javascript" src="http://www.google.com/jsapi?autoload={'modules':[{name:'maps',version:3,other_params:'sensor=true'}]}"></script>
           <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
      <script type="text/javascript" src="{{ static_url("js/gmaps.js")}}"></script> 
-     
-     <script type="text/javascript" src="{{ static_url("js/race_create.js")}}"></script>
      <script type="text/javascript" src="{{ static_url("js/route.js")}}"></script>
-     
-     
-     
-
-   
+     <script type="text/javascript" src="{{ static_url("js/race_create.js")}}"></script>
 {% end %}    
 
 {% block body %}
@@ -21,43 +15,6 @@
         #sortable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
         #sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 18px; }
         #sortable li span { position: absolute; margin-left: -1.3em; }
-
-        #hand_b {
-          width:31px;
-          height:31px;
-          background-image: url(http://google.com/mapfiles/ms/t/Bsu.png);
-        }
-        #hand_b.selected {
-          background-image: url(http://google.com/mapfiles/ms/t/Bsd.png);
-        }
-
-        #placemark_b {
-          width:31px;
-          height:31px;
-          background-image: url(http://google.com/mapfiles/ms/t/Bmu.png);
-        }
-        #placemark_b.selected {
-          background-image: url(http://google.com/mapfiles/ms/t/Bmd.png);
-        }
-
-        #line_b {
-          width:31px;
-          height:31px;
-          background-image: url(http://google.com/mapfiles/ms/t/Blu.png);
-        }
-        #line_b.selected {
-          background-image: url(http://google.com/mapfiles/ms/t/Bld.png);
-        }
-
-        #shape_b {
-          width:31px;
-          height:31px;
-          background-image: url(http://google.com/mapfiles/ms/t/Bpu.png);
-        }
-        #shape_b.selected {
-          background-image: url(http://google.com/mapfiles/ms/t/Bpd.png);
-        }
-
   </style>
   <div class="row main" >
   <div class="container-fluid">
@@ -66,17 +23,7 @@
               <div ><input name="title" type="text" class="title" value="{{ race.title if race else "race name..." }}"/></div>
               <div ><textarea name="desc" rows="10" cols="10" class="markdown">{{ race.desc if race else "race description" }}</textarea></div>
               <div ><input type="checkbox" name="started" value="{{ race.stared if race else "" }}">Started<br></div>
-              <div id='btnEnableEditing' class='btn btn-primary'>Enable Edit</div>
-              <div id='btnEnableDrawing' class='btn btn-primary'>Enable Drawing</div>
-              <div id='btnDisableEditing' class='btn btn-primary'>Disable Edit</div>
-              
-              <hl></hl>
-              <div>
-                <ul id="sortable">
-<!--                   <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 1</li> -->
-  
-                </ul>
-              </div>
+
               <div >
                 <input type="submit" value="{{ _("Save changes") if race else _("Create Race") }}" class="btn btn-success "/>
               </div>
@@ -85,8 +32,12 @@
               {% end %}
               {% module xsrf_form_html() %}
             </form>
-
+<div id="route">
+                  <table class="table .table-striped">
+                  </table>    
+              </div>
     </div>
+     
     <div class="span10 map" style="height:600px" id="basic_map">
 
     </div>
@@ -123,14 +74,19 @@
      strokeWeight: 3
    }
    initialize()
-   // route_line = new google.maps.Polyline(route_line_options);
-   // route_line.setMap(map.map);
-   // google.maps.event.addListener(map.map, 'click', onMapClick);
-   // google.maps.event.addListener(route_line, 'click', onLineClick);
 
+  
   });
 
+function updateRoute(){
+    r = route.createRoute();
+    $('#route table').empty();
+    
+   jQuery.each(r, function(index,value){
+       $('#route table').append("<tr><td>" + value.toString() + "</td></tr>");
+   });
 
+}
 
    
 
