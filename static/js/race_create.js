@@ -1,27 +1,21 @@
 
+var index = 0;
+var initialColor = '#0000ff';
+var route;
+function initialize(){
+	// var path = new google.maps.MVCArray();
+			var polyOptions = {
+			  strokeColor: initialColor,
+			  strokeOpacity: 0.6,
+			  strokeWeight: 3,
+			  clickable: true,
+			  geodesic: false,
+			  map: map.map
+			}
+		
 
-route = []
-
-function addMark(id){
-		var marker = new google.maps.Marker({
-    	position: map.getCenter(),
-    	map: map.map,
-    	draggable: true,
-    	title:'FooBar'
-
-  	});
-
-	if(id=='start'){
-		marker.title= 'Start'
+			
+		route = new RouteManager(polyOptions);
+		route.drawEnable();
+		console.log(route)
 	}
-	else if(id =='end'){
-		console.log('end')
-		marker.title= 'End'
-	}
-	else{
-		console.log('other')
-		marker.title= 'Marker ' + route.length
-	}
-	
-	route.push(marker)
-}
