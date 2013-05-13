@@ -25,15 +25,6 @@
               <div ><textarea name="desc" rows="10" cols="10" class="markdown">{{ race.desc if race else "race description" }}</textarea></div>
               <div ><input type="checkbox" name="started" value="{{ race.stared if race else "" }}">Started<br></div>
               <div id='start' class='btn btn-primary'>Set tart</div>
-              <div id='end' class='btn btn-primary'>Set Finish</div>
-              <div id='end' class='btn btn-primary'>Add Mark</div>
-              <hl></hl>
-              <div>
-                <ul id="sortable">
-<!--                   <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 1</li> -->
-  
-                </ul>
-              </div>
               <div >
                 <input type="submit" value="{{ _("Save changes") if race else _("Create Race") }}" class="btn btn-success "/>
               </div>
@@ -70,9 +61,6 @@
     panControl : false,
   });
 
-   // Sortable init
-   $( "#sortable" ).sortable();
-   $( "#sortable" ).disableSelection();
     
   });
 
