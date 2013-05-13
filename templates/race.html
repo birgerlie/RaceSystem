@@ -14,9 +14,40 @@
   .map{
     border: 1px solid #e3e3e3; 
   }
-  .coolbox {
+.number{
+  font-size: 13px;
+}
+.cell-avatar {width:100px;position:relative;top:-80px;}
+.cell-name {text-align:center;position:relative;top:-20px;width:240px;}
+.cell-info {position:relative;top:-20px;width:260px;}
+
+.infoitems {
+  list-style:none;
+}
+.cell-name .infoitems li:nth-child(1) {font-weight:bold;font-size:26px;position:relative;top:-70px;}
+.cell-name .infoitems li:nth-child(2) {position:relative;top: -45px;}
+.cell-name .infoitems li:nth-child(2) a:first-child {padding-right:10px;}
+
+.cell-info .infoitems li {padding:20px 10px;}
+.cell-info .infoitems li:nth-child(2) {
+  position: relative;
+  top: -58px;
+  left: 130px;
+}
+.cell-info .infoitems li:nth-child(3) {
+  position: relative;
+  top: -58px;
+  left: 130px;
+}
+.cell-info .infoitems li:nth-child(4) {
+  position: relative;
+  top: -116px;
+} 
+.accordion-heading {height:95px;overflow: hidden;padding:8px 0px;}
+.accordion-group {margin-bottom:15px;border:2px solid #DDD;}
+.coolbox {
   background: white;
-  padding: 10px;
+  padding: 5px;
   margin: 2px;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
@@ -28,10 +59,10 @@
   line-height: 20px;
   color: #333;
 }
-.number{
-  font-size: 13px;
+.accordion-heading .accordion-toggle {
+  display: inline;
+  padding: none;
 }
-}      
 </style>
 
 <script type="text/javascript">

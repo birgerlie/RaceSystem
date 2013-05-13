@@ -23,7 +23,11 @@
               <div ><input name="title" type="text" class="title" value="{{ race.title if race else "race name..." }}"/></div>
               <div ><textarea name="desc" rows="10" cols="10" class="markdown">{{ race.desc if race else "race description" }}</textarea></div>
               <div ><input type="checkbox" name="started" value="{{ race.stared if race else "" }}">Started<br></div>
+<<<<<<< HEAD
 
+=======
+              <div id='start' class='btn btn-primary'>Set tart</div>
+>>>>>>> 421a13506a490dd805260fa62a0086e1d100b95e
               <div >
                 <input type="submit" value="{{ _("Save changes") if race else _("Create Race") }}" class="btn btn-success "/>
               </div>
@@ -76,9 +80,12 @@
     panControl : false,
   });
 
+<<<<<<< HEAD
    // Sortable init
    $( "#sortable" ).sortable();
    $( "#sortable").disableSelection();
+=======
+>>>>>>> 421a13506a490dd805260fa62a0086e1d100b95e
     
 
    route_line_options = {

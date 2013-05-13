@@ -37,8 +37,6 @@ function RouteManager(opts){
  	}
 
 	RouteManager.prototype.pathChangeHandler = function(event) {
-		// console.log('pathChangeHandler: ' +  event)
-
 		if(typeof this.onRouteChange === 'function'){
 			setTimeout(this.onRouteChange, 1);
 		}
