@@ -1,6 +1,4 @@
 {% extends "base.html" %}
-
-
 {% block head %}
      <script type="text/javascript" src="http://www.google.com/jsapi?autoload={'modules':[{name:'maps',version:3,other_params:'sensor=true'}]}"></script>
           <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
@@ -8,9 +6,7 @@
      <script type="text/javascript" src="{{ static_url("js/route.js")}}"></script>
      <script type="text/javascript" src="{{ static_url("js/race_create.js")}}"></script>
 {% end %}    
-
 {% block body %}
-
   <style>
         #sortable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
         #sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 18px; }
@@ -23,11 +19,8 @@
               <div ><input name="title" type="text" class="title" value="{{ race.title if race else "race name..." }}"/></div>
               <div ><textarea name="desc" rows="10" cols="10" class="markdown">{{ race.desc if race else "race description" }}</textarea></div>
               <div ><input type="checkbox" name="started" value="{{ race.stared if race else "" }}">Started<br></div>
-<<<<<<< HEAD
 
-=======
               <div id='start' class='btn btn-primary'>Set tart</div>
->>>>>>> 421a13506a490dd805260fa62a0086e1d100b95e
               <div >
                 <input type="submit" value="{{ _("Save changes") if race else _("Create Race") }}" class="btn btn-success "/>
               </div>
@@ -36,7 +29,7 @@
               {% end %}
               {% module xsrf_form_html() %}
             </form>
-<div id="route">
+            <div id="route">
                   <table class="table table-striped table-bordered">
                      <caption>Route description</caption>
                       <thead>
@@ -79,14 +72,6 @@
     },
     panControl : false,
   });
-
-<<<<<<< HEAD
-   // Sortable init
-   $( "#sortable" ).sortable();
-   $( "#sortable").disableSelection();
-=======
->>>>>>> 421a13506a490dd805260fa62a0086e1d100b95e
-    
 
    route_line_options = {
      strokeColor: '#FF0000',
