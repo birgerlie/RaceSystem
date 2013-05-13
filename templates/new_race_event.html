@@ -33,7 +33,20 @@
               {% module xsrf_form_html() %}
             </form>
 <div id="route">
-                  <table class="table .table-striped">
+                  <table class="table table-striped table-bordered">
+                     <caption>Route description</caption>
+                      <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Bearing</th>
+                        <th>Distance (nm)</th>
+                        <th>Lat</th>
+                        <th>Lon</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+
                   </table>    
               </div>
     </div>
@@ -74,16 +87,17 @@
      strokeWeight: 3
    }
    initialize()
+   route.onRouteChange = updateRoute;
 
   
   });
 
 function updateRoute(){
     r = route.createRoute();
-    $('#route table').empty();
+    $('#route table tbody').empty();
     
    jQuery.each(r, function(index,value){
-       $('#route table').append("<tr><td>" + value.toString() + "</td></tr>");
+       $('#route table tbody').append("<tr><td>"+value.name+"</td><td>"+ num(value.bearing)+"</td><td>"+num(value.distance/1000 / 0.539957 )+"</td><td>"+ num(value.latLng.lat(),2)+"</td><td>"+num(value.latLng.lng(),2)+"</td>   </tr>");
    });
 
 }

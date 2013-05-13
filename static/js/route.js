@@ -13,9 +13,9 @@ function RouteManager(opts){
 
 	this.map = opts.map;
 	var polyOptions = {
-    strokeColor: '#ff0000',
+    strokeColor: '#ffee10',
     strokeOpacity: 1.0,
-    strokeWeight: 3,
+    strokeWeight: 2,
     clickable:false,
     editable:true,
     geodesic:true,
@@ -30,19 +30,23 @@ function RouteManager(opts){
   this.line.setMap(this.map);
   this.length = 0;
 
-  var drawLineOpts = {
-    strokeColor: '#f0f000',
-    strokeOpacity: 1.0,
-    strokeWeight: 3,
-    icons: [{
-    icon: lineSymbol,
-    clickable: false
-    // offset: '100%'
-  	}],
-  }
-  // this.drawingLine = new google.maps.Polyline(drawLineOpts);
-  // this.drawingLine.setMap(this.map);
-}		
+  google.maps.event.addListener(this.line.getPath() , 'insert_at', bind( this.pathChangeHandler, this ) );
+  google.maps.event.addListener(this.line.getPath() , 'remove_at', bind( this.pathChangeHandler, this ));
+  google.maps.event.addListener(this.line.getPath() , 'set_at', bind( this.pathChangeHandler, this ));
+  
+ 	}
+
+	RouteManager.prototype.pathChangeHandler = function(event) {
+		// console.log('pathChangeHandler: ' +  event)
+
+		if(typeof this.onRouteChange === 'function'){
+			setTimeout(this.onRouteChange, 1);
+		}
+	};
+
+	RouteManager.prototype.onRouteChange = function(first_argument) {
+		
+	};
 
 	RouteManager.prototype.addWayPoint = function(latLng) {
 		path = this.line.getPath();
@@ -51,7 +55,6 @@ function RouteManager(opts){
 	};
 
 	RouteManager.prototype.onMapClick = function(event) {
-		console.log(this);
 		this.addWayPoint(event.latLng);
 	};
 
@@ -82,8 +85,8 @@ function RouteManager(opts){
 
 	function WayPoint(){
 		this.latLng = undefined;
-		this.bearing = 0;
-		this.distance = 0;
+		this.bearing = 0.0;
+		this.distance = 0.0;
 		this.name = '-';
 		this.index = -1
 
@@ -91,18 +94,24 @@ function RouteManager(opts){
 
 
 		this.toString = function(){
-			return this.name + ' '  + num(this.bearing) + ' ' + num(this.distance) + ' ' +this.latLng.toString();
+			return this.name + ' hdg:'  + num(this.bearing) + ', ' + num((this.distance/1000) / 0.539957 ,0) + 'nm, lat:' + num(this.latLng.lat(),2) + ' lng:' + num(this.latLng.lng(),2);
 		}
 	}
 
-	function num(n){
-		return n
-		if(n === undefined){
+	function num(n, decimal_count){
+		if(decimal_count == undefined){decimal_count = 1}
+		if(n === undefined || n == 0.0){
 			return 0;
 		}
+		
 		var num =  String(n).split('.')
-		dec = num[1].substr(0,1)
+		if(decimal_count == 0){
+			return num[0];
+		}
+		dec = num[1].substr(0,decimal_count)
+		
 		v = num[0]
+		
 	return v + '.' + dec;
 }
 
@@ -115,7 +124,7 @@ function RouteManager(opts){
 
 		wp = new WayPoint()
 		wp.latLng = points.getAt(0)
-		wp.name =  'start'
+		wp.name =  'Start'
 		wp.index = 0
 		waypoints.push(wp)		
 		distance = 0;
@@ -134,7 +143,7 @@ function RouteManager(opts){
 				distance += wp.distance;
 			};		
 			waypoints.distance = distance;
-			waypoints[waypoints.length -1].name  = 'finish'
+			waypoints[waypoints.length -1].name  = 'Finish'
 			return waypoints
 	};
 
