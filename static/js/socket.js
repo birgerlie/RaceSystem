@@ -23,7 +23,7 @@ function socketConnection(){
 		};
 
 		if (!exist && competitors.length < 3){
-			new Competitor(data.id, pos);
+			new Competitor(data, pos);
 		
 		}
 	}	

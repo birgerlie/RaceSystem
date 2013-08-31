@@ -14,8 +14,10 @@ class ReportPositionHandler(BaseHandler):
 	       'lng':self.get_argument("lng",None),
 	       'hdg':self.get_argument("hdg",None),
 	       'speed':self.get_argument("speed",None),
-	       'utc' : self.get_argument("utc",None) ,
-           'id' : self.get_argument('id',None)
+	       'utc' : self.get_argument("time",None) ,
+           'id' : self.get_argument('id',None),
+           'nr' : self.get_argument('nr',None),
+           'skipper' : self.get_argument('skipper',None)
 	       }
 
 
@@ -28,8 +30,6 @@ class ReportPositionHandler(BaseHandler):
             gps_info['_id'] =  id
             
             self.db.pos.insert(gps_info)
-            print 'sending data on wire'
-
             for sock in self.application.sock:
                 sock.write_message(data)
 

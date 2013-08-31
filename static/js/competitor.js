@@ -30,22 +30,24 @@ function random_color() {
       type: 'poly'
   };
 
-function Competitor(id, position){
+function Competitor(data, position){
+  console.log(data)
 	this.color = random_color();
-	this.position=position;
-	this.id = id;
+	this.position = position;
+	this.id = data.id;
+  this.nr = data.nr
+  this.skipper = data.skipper
+
 	this.line  = undefined;
 	this.path = [];
 	this.symbol = {
     path: google.maps.SymbolPath.CIRCLE,
-    scale: 8,
+    scale: 2,
     strokeColor: this.color
   };
   this.path.push(this.position);
   
    competitors.push(this);
-  // competitors[this.id] = this
-  // console.log(competitors)
 }
 
 Competitor.prototype.getColor = function() {

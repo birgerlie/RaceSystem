@@ -92,7 +92,9 @@ if __name__ == "__main__":
 	       'hdg':150.0,
 	       'speed':10.5,
 	       'utc' : time.time(),
-           'id' : 'rett_fram'
+           'id' : 'rett_fram',
+           'nr' : 'NOR 123',
+           'skipper' : 'Kristoffer Brunner Lie'
 	       },
 	       {
 	       'lat':59.41,
@@ -100,7 +102,9 @@ if __name__ == "__main__":
 	       'hdg':150.0,
 	       'speed':10.5,
 	       'utc' : time.time(),
-           'id' : 'zikk_zakk'
+           'id' : 'zikk_zakk',
+           'nr' : 'NOR 29110',
+           'skipper' : 'Per Kristoffer Lie'
 	       },
 	       {
 	       'lat':59.445045,
@@ -108,7 +112,9 @@ if __name__ == "__main__":
 	       'hdg':150.0,
 	       'speed':10.5,
 	       'utc' : time.time(),
-           'id' : 'glefs'
+           'id' : 'glefs',
+           'nr' : 'NOR 26548',
+			'skipper' : 'Birger Kristoffer Lie'
 	       }
 	]
 
