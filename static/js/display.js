@@ -17,7 +17,7 @@ function senterMap(c){
 }
 
 function display_info(data){
-	
+console.log(data);	
 	if ($('#display').has("#" + data.id).length == 0)	{
 		var competitor_id = data.id;
 		$('#display').append(
