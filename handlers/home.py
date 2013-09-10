@@ -5,9 +5,17 @@ from handlers.base import BaseHandler
 
 class HomeHandler(BaseHandler):
     def get(self):
+
+    	render_type = self.get_argument('format', 'html')
+
         items=self.db.race.find()
+        data = {'data' : items}
 
         if items == None:
         	items = []
 
-        self.render('home.html', title='Show races', events=items)
+        if render_type == 'html':
+        	self.render('home.html', title='Show races', events=items)
+        else:
+        	self.write(data)
+

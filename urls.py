@@ -4,6 +4,7 @@ from handlers.race_create import RaceCreateHandler
 from handlers.home import HomeHandler
 from handlers.report_position import ReportPositionHandler
 from handlers.web_socket_broadcaster import WebSocketBroadcasterHandler
+from handlers.race_list import RaceListHandler
 
 
 url_patterns =[
@@ -12,4 +13,5 @@ url_patterns =[
                         (r"/race", RaceHandler),
                         (r"/sock", WebSocketBroadcasterHandler),   
                         (r"/pos", ReportPositionHandler),
+                        (r"/list", RaceListHandler)
                 ]
