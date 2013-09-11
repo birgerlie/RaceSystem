@@ -17,7 +17,10 @@ function senterMap(c){
 }
 
 function display_info(data){
+<<<<<<< HEAD
 console.log(data);	
+=======
+>>>>>>> c69429175ea5949a91f3b896d5f26add9e40f32a
 	if ($('#display').has("#" + data.id).length == 0)	{
 		var competitor_id = data.id;
 		$('#display').append(

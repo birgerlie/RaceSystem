@@ -23,7 +23,7 @@ class ReportPositionHandler(BaseHandler):
 
 
         print gps_info
-        if(self.valiedate_data(gps_info)):       
+        if(self.validate_data(gps_info)):       
             data = json.dumps(gps_info)
             id = "%s_%s" % (gps_info['id'], gps_info['utc'])
             
@@ -36,7 +36,7 @@ class ReportPositionHandler(BaseHandler):
         else:   
             print 'error validating data %s' % gps_info
 
-    def valiedate_data(self, data):
+    def validate_data(self, data):
         retval = True
         for d in data:
             if data[d] == None:
