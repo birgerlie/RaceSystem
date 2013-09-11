@@ -1,20 +1,15 @@
 
 			
 function num(n){
-	
-	if IsNumeric(n){
-		if( String(n).indexof(".") > 0){
+
+	if(String(n).indexof(".") > 0){
 			var num =  String(n).split('.')
 			dec = num[1].substr(0,1)
 			v = num[0]
 			return v + '.' + dec;		
-		}
-		return n
 	}
-
-	return 0
-
 	
+	return n
 }
 
 function senterMap(c){
