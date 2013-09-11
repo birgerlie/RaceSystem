@@ -27,7 +27,7 @@ function display_info(data){
 			'<tr id='+ data.id +'>' +
 				'<td ><a  onclick=senterMap(' + competitor_id   + ') >'+ data.id +' </a></td>' +
 				'<td >' + data.nr +     '</td>'			+	
-				'<td class="speed">bar1</td>'			+	
+				'<td class="speed"></td>'			+	
 				'<td class="hdg"></td>'			+	
 			'</tr>' );
 	}
@@ -39,7 +39,7 @@ function display_info(data){
 			}
 	}
 
-	$( '#' + data.id + ' .speed').text(num(data.speed) + ' knots');
-	$( '#' + data.id + ' .hdg').text(num(data.hdg) + ' deg');
+	$( '#' + data.id + ' .speed').text(data.speed + ' knots');
+	$( '#' + data.id + ' .hdg').text( data.hdg + ' deg');
 }
 
