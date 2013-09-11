@@ -1,6 +1,7 @@
 
 			
 function num(n){
+	console.log(n)
 	var num =  String(n).split('.')
 	dec = num[1].substr(0,1)
 
@@ -17,6 +18,7 @@ function senterMap(c){
 }
 
 function display_info(data){
+	console.log(data)
 	if ($('#display').has("#" + data.id).length == 0)	{
 		var competitor_id = data.id;
 		$('#display').append(
