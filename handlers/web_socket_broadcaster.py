@@ -19,7 +19,6 @@ class WebSocketBroadcasterHandler(tornado.websocket.WebSocketHandler):
         self.application.sock.remove(self) 
         print "connecton count %s" % len(self.application.sock)
 
-
     @property
     def db(self):
         return self.application.db

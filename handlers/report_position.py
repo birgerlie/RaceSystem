@@ -1,28 +1,31 @@
 #!/usr/bin/env python
 from handlers.base import BaseHandler
 import json
+import calendar
+import datetime
 
 
 
 
 class ReportPositionHandler(BaseHandler):
     def post(self):
-        print(self.request  )
+        # print(self.request  )
 
         gps_info = {
 	       'lat':self.get_argument("lat", None),
 	       'lng':self.get_argument("lng",None),
 	       'hdg':self.get_argument("hdg",None),
 	       'speed':self.get_argument("speed",None),
-	       'utc' : self.get_argument("time",None) ,
+	       'utc' : calendar.timegm(datetime.datetime.now().utctimetuple()) ,
            'id' : self.get_argument('id',None),
            'nr' : self.get_argument('nr',None),
-           'skipper' : self.get_argument('skipper',None)
+           'skipper' : self.get_argument('skipper',None),
+           'race': self.get_argument('race','None')
 	       }
 
 
 
-        print gps_info
+        #print gps_info
         if(self.validate_data(gps_info)):       
             data = json.dumps(gps_info)
             id = "%s_%s" % (gps_info['id'], gps_info['utc'])

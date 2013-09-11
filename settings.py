@@ -20,15 +20,19 @@ import environment
 path = lambda root,*a: os.path.join(root, *a)
 ROOT = os.path.dirname(os.path.abspath(__file__))
 
-define("port", default=8080, help="run on the given port", type=int)
+define("port", default=8888, help="run on the given port", type=int)
+define("server", default='localhost', help="set the host", type=str)
 
 
 settings = dict(
                      static_path=os.path.join(os.path.dirname(__file__), "static"),
                      template_path=os.path.join(os.path.dirname(__file__), "templates"),
                      site_title=u"Compete with your friends",
-                     debug=True
+                     debug=True,
+                     server=options.server,
+                     port=options.port
                     )                
+
 
 
 # if options.config:

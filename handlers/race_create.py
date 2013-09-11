@@ -9,7 +9,7 @@ class RaceCreateHandler(BaseHandler):
         race = None
 
         if id:
-            print id
+            
             race=self.db.race.find_one({"id":id})
             print race
 

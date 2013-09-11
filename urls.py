@@ -10,7 +10,7 @@ from handlers.web_socket_broadcaster import WebSocketBroadcasterHandler
 url_patterns =[
                         (r'/', HomeHandler),
                         (r'/create', RaceCreateHandler),
-                        (r"/race", RaceHandler),
+                        (r"/race/(.+)", RaceHandler),
                         (r"/sock", WebSocketBroadcasterHandler),   
                         (r"/pos", ReportPositionHandler),
  #                       (r"/list", RaceListHandler)

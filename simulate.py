@@ -6,6 +6,8 @@ from random import randint
 import time
 from geopy import distance  
 from geopy.point import Point
+from settings import settings
+
 
 boats = 3         #number of competitors
 update_freq = 1000  #simulated update freq
@@ -94,7 +96,8 @@ if __name__ == "__main__":
 	       'utc' : time.time(),
            'id' : 'rett_fram',
            'nr' : 'NOR 123',
-           'skipper' : 'Kristoffer Brunner Lie'
+           'skipper' : 'Kristoffer Brunner Lie',
+           'race' :'51717a44a38054060c58cb8e'
 	       },
 	       {
 	       'lat':59.41,
@@ -104,7 +107,8 @@ if __name__ == "__main__":
 	       'utc' : time.time(),
            'id' : 'zikk_zakk',
            'nr' : 'NOR 29110',
-           'skipper' : 'Per Kristoffer Lie'
+           'skipper' : 'Per Kristoffer Lie',
+           'race' :'51717a44a38054060c58cb8e'
 	       },
 	       {
 	       'lat':59.445045,
@@ -114,12 +118,15 @@ if __name__ == "__main__":
 	       'utc' : time.time(),
            'id' : 'glefs',
            'nr' : 'NOR 26548',
-			'skipper' : 'Birger Kristoffer Lie'
+			'skipper' : 'Birger Kristoffer Lie',
+			'race' :'51717a44a38054060c58cb8e'
 	       }
 	]
 
-	#server = "localhost:8080"
-	server = "ec2-50-112-26-56.us-west-2.compute.amazonaws.com:8080"
+	server = "%s:%s" % (settings['server'],settings['port'])
+
+	print "simulate sending data to: %s" % server 
+	# server = "ec2-50-112-26-56.us-west-2.compute.amazonaws.com:8080"
 	conn = httplib.HTTPConnection(server)
 	print 'server:' , server
 	count = 0
@@ -135,11 +142,6 @@ if __name__ == "__main__":
 		conn.request("POST", "/pos", params, headers)
 		time.sleep(1)
 		count +=1
-
-
-    
-			
-	#resp, content = h.request("http://127.0.0.1:8080/pos", "POST", urlencode(gps_info))
 	
 
 
