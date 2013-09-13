@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 from handlers.base import BaseHandler
-
+import json
 
 class RaceCreateHandler(BaseHandler):
 
@@ -17,12 +17,28 @@ class RaceCreateHandler(BaseHandler):
 
     def post(self):
 
-        race_info = {
-        'title':self.get_argument("title", None),
-        'desc':self.get_argument("desc", None),
-        'started':self.get_argument("started", False),
-        'start':[self.get_argument("s_lat", None),self.get_argument("s_lng", None)],
-        'goal':[self.get_argument("f_lat", None),self.get_argument("f_lng", None)],
-        'creator':'birger.lie@gmail.com'
-        }   
-        self.db.race.insert(race_info)
+        # print self.request
+
+        marks = str(self.get_argument("wp", None))
+        
+
+        if marks:
+            marks = json.loads(marks)
+            data = {}
+            for mark in marks:
+                data[ str(mark['index'])]={ 'index':mark['index'],'bearing':mark['bearing'],'distance':mark['distance'],  'pos':{'lat': mark['latLng']['nb'], 'lng': mark['latLng']['mb']} , 'name': mark['name']}
+
+
+            print marks
+            race_info = {
+            'title':self.get_argument("title", None),
+            'desc':self.get_argument("desc", None),
+            'started':self.get_argument("started", False),
+            'start': data['0'],
+            'goal':data[str(len(data) -1)] ,
+            'creator':'birger.lie@gmail.com',
+            'marks' : data,
+            }   
+
+
+            self.db.race.insert(race_info)

@@ -15,17 +15,15 @@
   <div class="row main" >
   <div class="container-fluid">
     <div class="span5 pull-left" id="race_info">
-            
-           
-           <a href="#myModal" role="button" class="btn" data-toggle="modal">Launch demo modal</a>
-
-            <form action="{{ request.path }}" method="post" class="compose">
+              <form action="{{ request.path }}" method="post" class="compose">
               <div ><input name="title" type="text" class="title" value="{{ race.title if race else "Race name..." }}"/></div>
+              <input id="_waypoints" type="hidden" name="wp" value=""/>
               <div ><textarea name="desc" rows="10" cols="10" class="markdown">{{ race.desc if race else "race description" }}</textarea></div>
               <div ><input type="checkbox" name="started" value="{{ race.stared if race else "" }}">Started<br></div>
               <div >
                 <input type="submit" value="{{ _("Save changes") if race else _("Create Race") }}" class="btn btn-success "/>
               </div>
+                
               {% if race %}
                 <input type="hidden" name="_id" value="{{ race._id }}"/>
               {% end %}
@@ -42,7 +40,7 @@
                       <tr>
                         <th>Name</th>
                         <th>Bearing</th>
-                        <th>Distance (nm)</th>
+                        <th>Nm</th>
                         <th>Lat</th>
                         <th>Lon</th>
                       </tr>
@@ -84,7 +82,7 @@
     div: '#basic_map',
     lat:   59.445075,
     lng:  10.250244,
-    zoom: 9,
+    zoom: 12,
     zoomControl : true,
     zoomControlOpt: {
         style : 'SMALL',
@@ -107,16 +105,19 @@
 function updateRoute(){
     r = route.createRoute();
     $('#route table tbody').empty();
-    
-   jQuery.each(r, function(index,value){
-       $('#route table tbody').append("<tr><td>"+value.name+"</td><td>"+ num(value.bearing)+"</td><td>"+num(value.distance/1000 / 0.539957 )+"</td><td>"+ num(value.latLng.lat(),2)+"</td><td>"+num(value.latLng.lng(),2)+"</td>   </tr>");
+    $('#_waypoints').empty()
+
+    var way_points = []
+   $.each(r, function(index,value){
+       $('#route table tbody').append("<tr id=wp_" +$("#route tr").length +"><td>"+value.name+"</td><td>"+ num(value.bearing)+"</td><td>"+num(value.distance/1000 / 0.539957 )+"</td><td>"+ num(value.latLng.lat(),3)+"</td><td>"+num(value.latLng.lng(),3)+"</td>   </tr>");
+
+
+       way_points.push(value)
+        
    });
 
+    $('#_waypoints').val(JSON.stringify(way_points));
 }
-
-   
-
-
 </script>
 
 
