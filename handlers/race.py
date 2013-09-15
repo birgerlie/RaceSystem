@@ -3,6 +3,7 @@
 from handlers.base import BaseHandler
 #import pymongo
 from bson import ObjectId
+import json
 
 class RaceHandler(BaseHandler):
     def get(self, raceId):
@@ -15,7 +16,7 @@ class RaceHandler(BaseHandler):
 			mark_pos = race['marks'][mark_key]['pos']
 			name = race['marks'][mark_key]['name']
 
-			m = {'m_id': int(mark_key), 'lat': mark_pos['lat'], 'lng':mark_pos['lng']}
+			m = {'m_id': int(mark_key), 'lat': mark_pos['lat'], 'lng':mark_pos['lng'] , 'name': str(name)}
 			mark_list.append(m)
 
 			marks =  sorted(mark_list, key=lambda mark: mark['m_id'] )

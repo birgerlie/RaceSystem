@@ -13,55 +13,7 @@
   .map{
     border: 1px solid #e3e3e3; 
   }
-.number{
-  font-size: 13px;
-}
-.cell-avatar {width:100px;position:relative;top:-80px;}
-.cell-name {text-align:center;position:relative;top:-20px;width:240px;}
-.cell-info {position:relative;top:-20px;width:260px;}
-
-.infoitems {
-  list-style:none;
-}
-.cell-name .infoitems li:nth-child(1) {font-weight:bold;font-size:26px;position:relative;top:-70px;}
-.cell-name .infoitems li:nth-child(2) {position:relative;top: -45px;}
-.cell-name .infoitems li:nth-child(2) a:first-child {padding-right:10px;}
-
-.cell-info .infoitems li {padding:20px 10px;}
-.cell-info .infoitems li:nth-child(2) {
-  position: relative;
-  top: -58px;
-  left: 130px;
-}
-.cell-info .infoitems li:nth-child(3) {
-  position: relative;
-  top: -58px;
-  left: 130px;
-}
-.cell-info .infoitems li:nth-child(4) {
-  position: relative;
-  top: -116px;
-} 
-.accordion-heading {height:95px;overflow: hidden;padding:8px 0px;}
-.accordion-group {margin-bottom:15px;border:2px solid #DDD;}
-.coolbox {
-  background: white;
-  padding: 5px;
-  margin: 2px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-  margin-bottom: 5px;
-  margin-left: 5px;
-  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-  font-size: 14px;
-  line-height: 20px;
-  color: #333;
-}
-.accordion-heading .accordion-toggle {
-  display: inline;
-  padding: none;
-}
+  
 </style>
 
 <script type="text/javascript">
@@ -69,7 +21,7 @@
   var sock;
   var raceId= '{% raw str(race['_id']) %}'
   {% from settings import settings %}
-  var marks = {{marks}};
+  var marks = {{marks}}
   var server_address = '{{"%s:%s" % (settings['server'],settings['port']) }}'
 
 
@@ -87,16 +39,8 @@
     panControl : false,
   });
  
-  
-      // var marker = new google.maps.Marker({
-      // position: new google.maps.LatLng(mark.lat, mark.lng),
-      // title: name,
-      // map: map,
-      
-    loadMarks()
-   
-
-   socketConnection();
+  loadMarks();
+  socketConnection();
 });
 
 function loadMarks(){
@@ -107,6 +51,7 @@ function loadMarks(){
 
       var marker = new google.maps.Marker({
       position: new google.maps.LatLng(marks[i].lat,marks[i].lng),
+      title: marks[i].name,
       map: map.map
     })
   }
@@ -122,13 +67,14 @@ function loadMarks(){
     
     </div>
     <div class="span6 display" >
-      <table id='display' class="table table-striped table-bordered">
+      <table id='display-table' class="table table-bordered display">
         <thead>
           <tr>
             <th>Name</th>
             <th>Sail Nr</th>
             <th>Speed</th>
             <th>Heading</th>
+            <th>Mark Distance</th>
         </tr>
         </thead>
         <tbody id='display' >

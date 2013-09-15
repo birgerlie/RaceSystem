@@ -39,6 +39,7 @@
                         <th>Nm</th>
                         <th>Lat</th>
                         <th>Lon</th>
+                        <th>Delete</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -91,19 +92,25 @@
    
   });
 
+
+function deleteMark(index){
+  if( index > 0 ){
+    route.line.getPath().removeAt(index -1)  
+    updateRoute()
+  }
+}
+
+
 function updateRoute(){
     r = route.createRoute();
     $('#route table tbody').empty();
     $('#_waypoints').empty()
 
     var way_points = []
-   $.each(r, function(index,value){
-       $('#route table tbody').append("<tr id=wp_" +$("#route tr").length +"><td><a>"+value.name+"</a></td><td>"+ num(value.bearing)+"</td><td>"+num(value.distance/1000 / 0.539957 )+"</td><td>"+ num(value.latLng.lat(),3)+"</td><td>"+num(value.latLng.lng(),3)+"</td>   </tr>");
-
-
-       way_points.push(value)
-        
-   });
+    $.each(r, function(index,value){
+       $('#route table tbody').append("<tr id='wp_" +$("#route tr").length +"' ><td><a>"+value.name+"</a></td><td>"+ num(value.bearing)+"</td><td>"+num(value.distance/1000 / 0.539957 )+"</td><td>"+ num(value.latLng.lat(),3)+"</td><td>"+num(value.latLng.lng(),3)+"</td> <td><a class='btn btn-danger'  onClick='deleteMark( " +$("#route tr").length +"  )' ><i class='icon-remove icon-white'></i></a></td></tr>");
+        way_points.push(value)
+    });
 
    $("#route tr").click(function(){
       if(this.rowIndex > 0){
@@ -112,6 +119,8 @@ function updateRoute(){
         map.panTo(w.latLng)  
       }
     });
+
+
 
     $('#_waypoints').val(JSON.stringify(way_points));
 }

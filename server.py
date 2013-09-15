@@ -25,7 +25,7 @@ class Application(tornado.web.Application):
     def __init__(self):
         tornado.web.Application.__init__(self, url_patterns, **settings)
         self.db = MongoClient().race_data
-        self.db.race.create_index([("loc", GEO2D)])
+        self.db.race.create_index([("pos", GEO2D)])
         self.sock = []
 
     
