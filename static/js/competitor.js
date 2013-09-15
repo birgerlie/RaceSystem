@@ -31,7 +31,7 @@ function random_color() {
   };
 
 function Competitor(data, position){
-  console.log(data)
+  
 	this.color = random_color();
 	this.position = position;
 	this.id = data.id;

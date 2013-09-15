@@ -69,6 +69,7 @@
   var sock;
   var raceId= '{% raw str(race['_id']) %}'
   {% from settings import settings %}
+  var marks = {{marks}};
   var server_address = '{{"%s:%s" % (settings['server'],settings['port']) }}'
 
 
@@ -85,8 +86,32 @@
     },
     panControl : false,
   });
+ 
+  
+      // var marker = new google.maps.Marker({
+      // position: new google.maps.LatLng(mark.lat, mark.lng),
+      // title: name,
+      // map: map,
+      
+    loadMarks()
+   
+
    socketConnection();
 });
+
+function loadMarks(){
+  if (marks != undefined){
+    for(i = 0; i< marks.length; i++){
+      
+      console.log(marks[i])
+
+      var marker = new google.maps.Marker({
+      position: new google.maps.LatLng(marks[i].lat,marks[i].lng),
+      map: map.map
+    })
+  }
+}
+}
 
 </script>
 

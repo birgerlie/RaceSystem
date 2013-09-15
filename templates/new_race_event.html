@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block head %}
-     <script type="text/javascript" src="http://www.google.com/jsapi?autoload={'modules':[{name:'maps',version:3,other_params:'sensor=true'}]}"></script>
-          <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+     <script type="text/javascript" src="http://maps.google.com/maps/api/js?libraries=geometry&sensor=true"></script>
+      <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
      <script type="text/javascript" src="{{ static_url("js/gmaps.js")}}"></script> 
      <script type="text/javascript" src="{{ static_url("js/route.js")}}"></script>
      <script type="text/javascript" src="{{ static_url("js/race_create.js")}}"></script>
@@ -16,23 +16,19 @@
   <div class="container-fluid">
     <div class="span5 pull-left" id="race_info">
               <form action="{{ request.path }}" method="post" class="compose">
-              <div ><input name="title" type="text" class="title" value="{{ race.title if race else "Race name..." }}"/></div>
+              <div ><input name="title" type="text" class="title" value="{{ race['title'] if race else "Race name..." }}"/></div>
               <input id="_waypoints" type="hidden" name="wp" value=""/>
-              <div ><textarea name="desc" rows="10" cols="10" class="markdown">{{ race.desc if race else "race description" }}</textarea></div>
-              <div ><input type="checkbox" name="started" value="{{ race.stared if race else "" }}">Started<br></div>
+              <div ><textarea name="desc" rows="10" cols="10" class="markdown">{{ race['desc'] if race else "race description" }}</textarea></div>
+              <div ><input type="checkbox" name="started" value="{{ race['started'] if race else "" }}">Started<br></div>
               <div >
                 <input type="submit" value="{{ _("Save changes") if race else _("Create Race") }}" class="btn btn-success "/>
               </div>
                 
               {% if race %}
-                <input type="hidden" name="_id" value="{{ race._id }}"/>
+                <input type="hidden" name="id" value="{{ str(race['_id']) }}"/>
               {% end %}
               {% module xsrf_form_html() %}
-            </form>
-
-
-
-            
+            </form>          
             <div id="route">
                   <table class="table table-striped table-bordered">
                      <caption>Route description</caption>
@@ -52,30 +48,16 @@
               </div>
     </div>
      
-    <div class="span10 map" style="height:600px" id="basic_map">
-
+    <div class="span10 map" style="height:600px" id="basic_map"></div>
     </div>
-    </div>
-</div>
-
-<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">Modal header</h3>
-  </div>
-  <div class="modal-body">
-    <p>One fine body…</p>
-  </div>
-  <div class="modal-footer">
-    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-    <button class="btn btn-primary">Save changes</button>
-  </div>
 </div>
 
 
 <script type="text/javascript">
   var map;
   var route;
+  var None = undefined
+  var loaded_marks = {{marks}}
   
   $(document).ready(function(){
    map = new GMaps({
@@ -99,7 +81,14 @@
    initialize()
    route.onRouteChange = updateRoute;
 
-  
+   if (loaded_marks != undefined){
+       for (i = 0; i< loaded_marks.length; i++){
+          m = loaded_marks[i]
+          route.addWayPoint(new google.maps.LatLng(m.lat,m.lng))
+       }
+       map.panTo(new google.maps.LatLng(loaded_marks[0].lat,loaded_marks[0].lng) )
+   }
+   
   });
 
 function updateRoute(){
@@ -109,12 +98,20 @@ function updateRoute(){
 
     var way_points = []
    $.each(r, function(index,value){
-       $('#route table tbody').append("<tr id=wp_" +$("#route tr").length +"><td>"+value.name+"</td><td>"+ num(value.bearing)+"</td><td>"+num(value.distance/1000 / 0.539957 )+"</td><td>"+ num(value.latLng.lat(),3)+"</td><td>"+num(value.latLng.lng(),3)+"</td>   </tr>");
+       $('#route table tbody').append("<tr id=wp_" +$("#route tr").length +"><td><a>"+value.name+"</a></td><td>"+ num(value.bearing)+"</td><td>"+num(value.distance/1000 / 0.539957 )+"</td><td>"+ num(value.latLng.lat(),3)+"</td><td>"+num(value.latLng.lng(),3)+"</td>   </tr>");
 
 
        way_points.push(value)
         
    });
+
+   $("#route tr").click(function(){
+      if(this.rowIndex > 0){
+        r = route.createRoute();
+        w = r[this.rowIndex -1]
+        map.panTo(w.latLng)  
+      }
+    });
 
     $('#_waypoints').val(JSON.stringify(way_points));
 }

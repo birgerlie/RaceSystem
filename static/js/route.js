@@ -50,7 +50,7 @@ function RouteManager(opts){
 		path = this.line.getPath();
 		path.push(latLng);
   		this.lastLatLng = latLng
-	};
+	}; 	
 
 	RouteManager.prototype.onMapClick = function(event) {
 		this.addWayPoint(event.latLng);
@@ -132,7 +132,7 @@ function RouteManager(opts){
 				end = points.getAt(i)
 				wp = new WayPoint()
 				wp.latLng = end
-				wp.name =  'Waypoint ' + (i).toString()
+				wp.name =  'Mark ' + (i).toString()
 				wp.index = i
 				wp.bearing =google.maps.geometry.spherical.computeHeading(start, end);
 				if(wp.bearing < 0){wp.bearing+=360}
