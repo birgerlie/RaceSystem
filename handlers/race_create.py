@@ -13,19 +13,20 @@ class RaceCreateHandler(BaseHandler):
         render_type = self.get_argument('format', 'html')
         id = self.get_argument('id', None)
         race = None 
-        marks = None
+        marks = []
 
         if id:
             mark_list = []
             race=self.db.race.find_one({"_id": ObjectId(id)})
 
-            for mark_key in race['marks']:
-                mark_pos = race['marks'][mark_key]['pos']
+            if 'marks' in race:
+                for mark_key in race['marks']:
+                    mark_pos = race['marks'][mark_key]['pos']
 
-                m = { 'm_id': int(mark_key), 'lat': mark_pos['lat'], 'lng':mark_pos['lng']}
-                mark_list.append(m)
+                    m = { 'm_id': int(mark_key), 'lat': mark_pos['lat'], 'lng':mark_pos['lng']}
+                    mark_list.append(m)
 
-            marks =  sorted(mark_list, key=lambda mark: mark['m_id'] )
+                marks =  sorted(mark_list, key=lambda mark: mark['m_id'] )
 
         if render_type == 'json':
             self.write( {'marks': marks}) 
