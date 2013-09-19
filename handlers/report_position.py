@@ -25,9 +25,9 @@ class ReportPositionHandler(BaseHandler):
 
 
         
-        # id = gps_info['yacht'] + gps_info['nr']
-        # id= id.replace(' ', '')
-        # gps_info['id'] = id
+        id = gps_info['yacht'] + gps_info['nr']
+        id= id.replace(' ', '')
+        gps_info['id'] = id
 
 
         print gps_info
