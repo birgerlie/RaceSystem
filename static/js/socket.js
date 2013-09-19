@@ -5,7 +5,7 @@ function socketConnection(){
 	sock = new WebSocket("ws://" + server_address + "/sock");
 	
 	sock.onopen = function(){ console.log("Connected websocket"); };
-	sock.onerror = function(){ console.log("Websocket error"); };
+	sock.onerror = function(e){ console.log("Websocket error " + e); };
 	sock.onmessage = function(evt){
 	    var data = JSON.parse(evt.data);
 	   	var min_dist = 0.005
