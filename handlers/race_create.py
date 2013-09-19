@@ -58,10 +58,10 @@ class RaceCreateHandler(BaseHandler):
             }   
 
             if id:
-                print 'update race: %s' % race_info['title']  
+                print 'update race: %s' % str(race_info['title'])  
                 self.db.race.update({'_id': ObjectId(id)}, race_info)
             else:
-                print 'create race: %s' % race_info['title']  
+                print 'create race: %s' % str(race_info['title'])  
                 self.db.race.insert(race_info)
             
             self.redirect('/')
