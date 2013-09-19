@@ -17,25 +17,29 @@ class ReportPositionHandler(BaseHandler):
 	       'hdg':self.get_argument("hdg",None),
 	       'speed':self.get_argument("speed",None),
 	       'utc' : calendar.timegm(datetime.datetime.now().utctimetuple()) ,
-           'id' : self.get_argument('id',None),
+           'yacht' : self.get_argument('id',None),
            'nr' : self.get_argument('nr',None),
            'skipper' : self.get_argument('skipper',None),
            'race': self.get_argument('race','None')
 	       }
 
 
+        
+        id = gps_info['yacht'] + gps_info['nr']
+        id= id.replace(' ', '')
+        gps_info['id'] = id
+
 
         #print gps_info
         if(self.validate_data(gps_info)):       
             data = json.dumps(gps_info)
-            id = "%s_%s" % (gps_info['id'], gps_info['utc'])
+            _id = "%s_%s" % (gps_info['id'], gps_info['utc'])
             
-            gps_info['_id'] =  id
+            gps_info['_id'] =  _id
             
             self.db.pos.insert(gps_info)
             for sock in self.application.sock:
                 sock.write_message(data)
-
         else:   
             print 'error validating data %s' % gps_info
 

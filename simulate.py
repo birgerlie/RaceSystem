@@ -7,6 +7,32 @@ import time
 from geopy import distance  
 from geopy.point import Point
 from settings import settings
+from pymongo import MongoClient
+
+class LatLon():
+	def __init__(self, lat,lng):
+		self.lat = lat
+		self.lng = lng
+
+	def distance(self,other):
+		return distance.distance(Point(self.lat,self.lng),Point(other.lat,other.lng)).meters * 0.8684
+
+	def bearing(self, other ):
+		lat2,lon2 = other.lat,other.lng
+		dLon = lon2 - self.lng
+		y = sin(dLon) * cos(lat2)
+		x = cos(self.lat) * sin(lat2) \
+		    - sin(self.lat) * cos(lat2) * cos(dLon)
+		d =  degrees(atan2(y, x))
+		
+		if d < 0.0 :
+			return 360.0 + d
+		else:
+			return d
+
+	def __dict__(self):
+		return {"lat": self.lat, "lng":self.lng }
+
 
 
 boats = 3         #number of competitors
@@ -44,6 +70,12 @@ def changing_cource():
 
 def create_data(last_pos):
 	
+	min_dist = 0.005
+	current_mark = boats_marks[last_pos[bid]]
+
+
+
+
 	nom = 100000.0
 
 	lng = randint(1,100) / nom
@@ -78,9 +110,18 @@ def create_data(last_pos):
 	return last_pos
 
 
+marks = []
+boats_marks= {}
 if __name__ == "__main__":
 	
+ 	db =  MongoClient().race_data
+ 	race = db.race.find_one()
+ 	
+ 	for k,v in race['marks'].iteritems():
+ 		marks.append( LatLon(v['pos']['lat'],v['pos']['lng']))
 
+ 	race_id = str(race['_id'])
+ 	print "Race: %s " % race['title']
 
 	headers={"Content-type": "application/x-www-form-urlencoded","Accept": "text/plain"}
 	update_freq = 1000  #simulated update freq
@@ -94,10 +135,10 @@ if __name__ == "__main__":
 	       'hdg':150.0,
 	       'speed':10.5,
 	       'utc' : time.time(),
-           'id' : 'rett_fram',
+           'id' : 'Rett Fram',
            'nr' : 'NOR 123',
            'skipper' : 'Kristoffer Brunner Lie',
-           'race' :'51717a44a38054060c58cb8e'
+           'race' :race_id
 	       },
 	       {
 	       'lat':59.41,
@@ -105,10 +146,10 @@ if __name__ == "__main__":
 	       'hdg':150.0,
 	       'speed':10.5,
 	       'utc' : time.time(),
-           'id' : 'zikk_zakk',
+           'id' : 'Zikk Zakk',
            'nr' : 'NOR 29110',
            'skipper' : 'Per Kristoffer Lie',
-           'race' :'51717a44a38054060c58cb8e'
+           'race' :race_id
 	       },
 	       {
 	       'lat':59.445045,
@@ -116,20 +157,34 @@ if __name__ == "__main__":
 	       'hdg':150.0,
 	       'speed':10.5,
 	       'utc' : time.time(),
-           'id' : 'glefs',
+           'id' : 'Glefs',
            'nr' : 'NOR 26548',
 			'skipper' : 'Birger Kristoffer Lie',
-			'race' :'51717a44a38054060c58cb8e'
+			'race' :race_id
+	       },
+	        {
+	       'lat':59.46,
+	       'lng':10.26,
+	       'hdg':150.0,
+	       'speed':10.5,
+	       'utc' : time.time(),
+           'id' : str('Team NZ'),
+           'nr' : 'NZL 32',
+			'skipper' : 'Dean Barker',
+			'race' :race_id
 	       }
 	]
 
 	server = "%s:%s" % (settings['server'],settings['port'])
 
-	print "simulate sending data to: %s" % server 
-	# server = "ec2-50-112-26-56.us-west-2.compute.amazonaws.com:8080"
 	conn = httplib.HTTPConnection(server)
 	print 'server:' , server
 	count = 0
+	bid = 'id'
+
+	for boat in boats:
+		boats_marks[boat[bid]] = marks[0]
+
 	while(True):
 
 		conn = httplib.HTTPConnection(server)

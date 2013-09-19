@@ -17,5 +17,4 @@ function initialize(){
 			
 		route = new RouteManager(polyOptions);
 		route.drawEnable();
-		console.log(route)
 	}
