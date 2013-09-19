@@ -45,11 +45,11 @@ class RaceCreateHandler(BaseHandler):
             for mark in marks:
                 lat = mark['latLng'][mark['latLng'].keys()[0]]
                 lng = mark['latLng'][mark['latLng'].keys()[1]]
-                data[ str(mark['index'])]={ 'index':mark['index'],'bearing':mark['bearing'],'distance':mark['distance'],'name': mark['name'], 'pos':{'lat': lat, 'lng': lng }}
+                data[ str(mark['index'])]={ 'index':mark['index'],'bearing':mark['bearing'],'distance':mark['distance'],'name': mark['name'].encode('utf-8'), 'pos':{'lat': lat, 'lng': lng }}
 
             race_info = {
-            'title':self.get_argument("title", None),
-            'desc':self.get_argument("desc", None),
+            'title':self.get_argument("title", '').encode('utf-8'),
+            'desc':self.get_argument("desc", '').encode('utf-8'),
             'started':self.get_argument("started", False),
             'start': data['0'],
             'goal':data[str(len(data) -1)] ,
