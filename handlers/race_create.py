@@ -6,6 +6,11 @@ from bson.objectid import ObjectId
 class RaceCreateHandler(BaseHandler):
 
     def get(self):
+        self.set_header('Access-Control-Allow-Origin', '*')
+        self.set_header('Access-Control-Allow-Methods', 'POST, OPTIONS, GET')
+        self.set_header('Access-Control-Max-Age', 1000)
+        self.set_header('Access-Control-Allow-Headers', '*')
+        render_type = self.get_argument('format', 'html')
         id = self.get_argument('id', None)
         race = None 
         marks = None
@@ -22,7 +27,11 @@ class RaceCreateHandler(BaseHandler):
 
             marks =  sorted(mark_list, key=lambda mark: mark['m_id'] )
 
-        self.render('new_race_event.html', race=race, marks=marks)
+        if render_type == 'json':
+            self.write( {'marks': marks}) 
+                    
+        else:
+            self.render('new_race_event.html', race=race, marks=marks)
 
     def post(self):
 
@@ -49,7 +58,6 @@ class RaceCreateHandler(BaseHandler):
 
             if id:
                 print 'update race: %s' % race_info['title']  
-                # race_info['_id'] = ObjectId(id)
                 self.db.race.update({'_id': ObjectId(id)}, race_info)
             else:
                 print 'create race: %s' % race_info['title']  
