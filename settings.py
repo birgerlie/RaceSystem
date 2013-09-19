@@ -22,7 +22,7 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 
 define("port", default=8888, help="run on the given port", type=int)
 #define("server", default='localhost', help="set the host", type=str)
-define("server", default='http://ec2-50-112-26-56.us-west-2.compute.amazonaws.com', help="set the host", type=str)
+define("server", default='ec2-50-112-26-56.us-west-2.compute.amazonaws.com', help="set the host", type=str)
 
 
 settings = dict(
