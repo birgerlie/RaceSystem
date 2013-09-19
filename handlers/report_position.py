@@ -25,17 +25,16 @@ class ReportPositionHandler(BaseHandler):
 
 
         
-        id = gps_info['yacht'] + gps_info['nr']
-        id= id.replace(' ', '')
-        gps_info['id'] = id
+        # id = gps_info['yacht'] + gps_info['nr']
+        # id= id.replace(' ', '')
+        # gps_info['id'] = id
 
 
-        #print gps_info
+        print gps_info
         if(self.validate_data(gps_info)):       
             data = json.dumps(gps_info)
-            _id = "%s_%s" % (gps_info['id'], gps_info['utc'])
-            
-            gps_info['_id'] =  _id
+            # _id = "%s_%s" % (gps_info['id'], gps_info['utc'])
+            # gps_info['_id'] =  _id
             
             self.db.pos.insert(gps_info)
             for sock in self.application.sock:
