@@ -43,7 +43,7 @@ function Competitor(data, position){
 	this.path = [];
 	this.symbol = {
     path: google.maps.SymbolPath.CIRCLE,
-    scale: 2,
+    scale: 4,
     strokeColor: this.color
   };
   this.path.push(this.position);
@@ -115,7 +115,7 @@ Competitor.prototype.setPosition = function(newpos) {
 		    path: this.path,
 		    strokeColor:  this.getColor(),
 		    strokeOpacity: 1,
-		    strokeWeight: 2,
+		    strokeWeight: 3,
         click:  function(){ alert('test')},
         shape:shape,
 		    icons: [{

@@ -14,8 +14,8 @@ class ReportPositionHandler(BaseHandler):
         gps_info = {
 	       'lat':self.get_argument("lat", None),
 	       'lng':self.get_argument("lng",None),
-	       'hdg':self.get_argument("hdg",None),
-	       'speed':self.get_argument("speed",None),
+	       'hdg':self.get_argument("hdg",0),
+	       'speed':self.get_argument("speed", 0 ),
 	       'utc' : calendar.timegm(datetime.datetime.now().utctimetuple()) ,
            'yacht' : self.get_argument('id',None),
            'nr' : self.get_argument('nr',None),
@@ -23,6 +23,8 @@ class ReportPositionHandler(BaseHandler):
            'race': self.get_argument('race','None')
 	       }
 
+        #convert m/s to knots
+        gps_info['speed'] = gps_info['speed'] *  1.943844   
 
         
         id = gps_info['yacht'] + gps_info['nr']
