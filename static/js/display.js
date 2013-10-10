@@ -1,5 +1,3 @@
-
-			
 function num(n){
 
 	if(String(n).indexof(".") > 0){
@@ -20,9 +18,6 @@ function senterMap(c){
 }
 
 function display_info(data){
-	// console.log(data)
-	
-
 	if ($('#display').has("#" + data.id).length == 0)	{
 	
 		$('#display').append(
@@ -46,5 +41,3 @@ function display_info(data){
 	$( '#' + data.id + ' .speed').text(data.speed + ' knots');
 	$( '#' + data.id + ' .hdg').text( data.hdg + ' deg');
 	$( '#' + data.id + ' .mrk').text( data.distanceToMark + ' Nm');
-}
-

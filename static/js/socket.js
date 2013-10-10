@@ -13,7 +13,8 @@ function socketConnection(){
 	    // console.log(data)
 	    if(raceId === data.race){
 
-		
+		console.log(data);
+		display_info(data);	
 		
 		pos = new google.maps.LatLng(data.lat, data.lng)
 		exist = false;
