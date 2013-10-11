@@ -1,6 +1,7 @@
+
 function num(n){
 
-	if(String(n).indexof(".") > 0){
+	if(isNumber(n)){
 			var num =  String(n).split('.')
 			dec = num[1].substr(0,1)
 			v = num[0]
@@ -8,6 +9,10 @@ function num(n){
 	}
 	
 	return n
+}
+
+function isNumber(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
 }
 
 function senterMap(c){
@@ -19,13 +24,15 @@ function senterMap(c){
 
 function display_info(data){
 	if ($('#display').has("#" + data.id).length == 0)	{
-	
+	console.log(data)
 		$('#display').append(
 			'<tr id='+ data.id +'>' +
 				'<td ><a class="btn" onclick=senterMap(' + data.id   + ') >'+ data.yacht +' </a></td>' +
 				'<td >' + data.nr +     '</td>'			+	
+				'<td >' + data.skipper +     '</td>'			+	
 				'<td class="speed"></td>'			+	
 				'<td class="hdg"></td>'			+	
+				'<td class="mrk_name"></td>'			+	
 				'<td class="mrk"></td>'			+	
 			'</tr>' );
 	}
@@ -38,6 +45,11 @@ function display_info(data){
 			}
 	}
 
-	$( '#' + data.id + ' .speed').text(data.speed + ' knots');
-	$( '#' + data.id + ' .hdg').text( data.hdg + ' deg');
-	$( '#' + data.id + ' .mrk').text( data.distanceToMark + ' Nm');
+	$( '#' + data.id + ' .speed').text( num(data.speed)+ ' knots');
+	$( '#' + data.id + ' .hdg').text( num(data.hdg) + ' deg');
+	$( '#' + data.id + ' .mrk').text( num(data.distanceToMark) + ' Nm');
+	$( '#' + data.id + ' .mrk_name').text(data.mark);
+
+}
+
+
