@@ -1,5 +1,4 @@
 
-
 var competitors = []
 
 
@@ -76,6 +75,32 @@ distance = function(lat1, lon1, lat2, lon2) {
     
     return dist * 0.8684 
 }
+
+toRad = function(num) {
+    return num * Math.PI / 180;
+}
+toDeg = function(num) {
+    return num * 180 / Math.PI;
+  }
+
+Competitor.prototype.bearingToMark = function() {
+  point = this.getTargetMark()
+  current =  this.position
+
+  var lat1 = toRad(current.lat())
+  var lat2 = toRad(point.lat);
+  var dLon = toRad(point.lng) - toRad(current.lng());
+
+  var y = Math.sin(dLon) * Math.cos(lat2);
+  var x = Math.cos(lat1)*Math.sin(lat2) -
+          Math.sin(lat1)*Math.cos(lat2)*Math.cos(dLon);
+  var brng = Math.atan2(y, x);
+
+  return (toDeg(brng)+360) % 360;
+}
+
+
+
 
 Competitor.prototype.distanceToMark = function(){
   if(this.getTargetMark() == undefined)

@@ -122,7 +122,7 @@ function RouteManager(opts){
 
 		wp = new WayPoint()
 		wp.latLng = points.getAt(0)
-		wp.name =  'Start'
+		wp.name =  'Mark 1'
 		wp.index = 0
 		waypoints.push(wp)		
 		distance = 0;
@@ -132,7 +132,7 @@ function RouteManager(opts){
 				end = points.getAt(i)
 				wp = new WayPoint()
 				wp.latLng = end
-				wp.name =  'Mark ' + (i).toString()
+				wp.name =  'Mark ' + (i + 1).toString()
 				wp.index = i
 				wp.bearing =google.maps.geometry.spherical.computeHeading(start, end);
 				if(wp.bearing < 0){wp.bearing+=360}

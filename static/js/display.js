@@ -24,13 +24,13 @@ function senterMap(c){
 
 function display_info(data){
 	if ($('#display').has("#" + data.id).length == 0)	{
-	console.log(data)
 		$('#display').append(
 			'<tr id='+ data.id +'>' +
 				'<td ><a class="btn" onclick=senterMap(' + data.id   + ') >'+ data.yacht +' </a></td>' +
 				'<td >' + data.nr +     '</td>'			+	
 				'<td >' + data.skipper +     '</td>'			+	
 				'<td class="speed"></td>'			+	
+				'<td class="vmg"></td>'			+	
 				'<td class="hdg"></td>'			+	
 				'<td class="mrk_name"></td>'			+	
 				'<td class="mrk"></td>'			+	
@@ -49,6 +49,7 @@ function display_info(data){
 	$( '#' + data.id + ' .hdg').text( num(data.hdg) + ' deg');
 	$( '#' + data.id + ' .mrk').text( num(data.distanceToMark) + ' Nm');
 	$( '#' + data.id + ' .mrk_name').text(data.mark);
+	$( '#' + data.id + ' .vmg').text(num(data.vmg));
 
 }
 

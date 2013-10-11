@@ -13,7 +13,7 @@ function socketConnection(){
 	    if(raceId === data.race){
 
 		//console.log(data);
-		display_info(data);	
+		// display_info(data);	
 		
 		pos = new google.maps.LatLng(data.lat, data.lng)
 		exist = false;
@@ -36,7 +36,9 @@ function socketConnection(){
 							competitor.setTargetMark(marks[competitor.mark_index % marks.length])
 						}
 				}
+				
 				data.distanceToMark = competitor.distanceToMark();
+				data.vmg = data.speed * Math.cos( data.hdg - competitor.bearingToMark());
 				data.mark = competitor.getTargetMark().name;
 				display_info(data);					
 			}
