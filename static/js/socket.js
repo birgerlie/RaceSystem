@@ -8,7 +8,7 @@ function socketConnection(){
 	sock.onerror = function(e){ console.log("Websocket error " + e); };
 	sock.onmessage = function(evt){
 	    var data = JSON.parse(evt.data);
-	   	var min_dist = 0.5
+	   	var min_dist = 0.00539957 //10 meter i Nm
 
 	    if(raceId === data.race){
 
@@ -30,17 +30,13 @@ function socketConnection(){
 					competitor.mark_index = 0
 				}
 				else{
-				
-					distanceToMark = competitor.distanceToMark()
-					data.distanceToMark = distanceToMark;
-					console.log(competitor.current_mark);
-					if( distanceToMark < min_dist) //we assume mark rounding when we are closer than 10 meters
-					{	
-						competitor.mark_index +=1
-						competitor.setTargetMark(marks[competitor.mark_index % marks.length])
-						data.mark = competitor.getTargetMark().name;
-					}
+						if( competitor.distanceToMark() < min_dist) //we assume mark rounding when we are closer than 10 meters
+						{	
+							competitor.mark_index +=1
+							competitor.setTargetMark(marks[competitor.mark_index % marks.length])
+						}
 				}
+				data.distanceToMark = competitor.distanceToMark();
 				data.mark = competitor.getTargetMark().name;
 				display_info(data);					
 			}
