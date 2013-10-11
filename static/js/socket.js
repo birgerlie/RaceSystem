@@ -8,12 +8,11 @@ function socketConnection(){
 	sock.onerror = function(e){ console.log("Websocket error " + e); };
 	sock.onmessage = function(evt){
 	    var data = JSON.parse(evt.data);
-	   	var min_dist = 0.005
+	   	var min_dist = 0.5
 
-	    // console.log(data)
 	    if(raceId === data.race){
 
-		console.log(data);
+		//console.log(data);
 		display_info(data);	
 		
 		pos = new google.maps.LatLng(data.lat, data.lng)
@@ -28,22 +27,21 @@ function socketConnection(){
 				
 				if(competitor.getTargetMark() == undefined){
 					competitor.setTargetMark(marks[0])
+					competitor.mark_index = 0
 				}
 				else{
 				
 					distanceToMark = competitor.distanceToMark()
-					data.distanceToMark = distanceToMark
-
+					data.distanceToMark = distanceToMark;
+					console.log(competitor.current_mark);
 					if( distanceToMark < min_dist) //we assume mark rounding when we are closer than 10 meters
-					{
-
+					{	
+						competitor.mark_index +=1
+						competitor.setTargetMark(marks[competitor.mark_index % marks.length])
+						data.mark = competitor.getTargetMark().name;
 					}
-
-
-
 				}
-				
-
+				data.mark = competitor.getTargetMark().name;
 				display_info(data);					
 			}
 		};
