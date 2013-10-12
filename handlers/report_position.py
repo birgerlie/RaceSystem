@@ -14,9 +14,9 @@ class ReportPositionHandler(BaseHandler):
         skipper = 'Ukjent'
         try:
             skipper = self.get_argument('skipper',None)
-            
+
         except:
-            console.log('feil under parsing')
+            print ('feil under parsing')
 
         gps_info = {
 	       'lat':self.get_argument("lat", None),
