@@ -10,6 +10,13 @@ import datetime
 class ReportPositionHandler(BaseHandler):
     def post(self):
         # print(self.request  )
+        
+        skipper = 'Ukjent'
+        try:
+            skipper = self.get_argument('skipper',None)
+            
+        except:
+            console.log('feil under parsing')
 
         gps_info = {
 	       'lat':self.get_argument("lat", None),
@@ -19,7 +26,7 @@ class ReportPositionHandler(BaseHandler):
 	       'utc' : calendar.timegm(datetime.datetime.now().utctimetuple()) ,
            'yacht' : self.get_argument('id',None),
            'nr' : self.get_argument('nr',None),
-           'skipper' : self.get_argument('skipper',None),
+           'skipper' : skipper,
            'race': self.get_argument('race','None')
 	       }
 
