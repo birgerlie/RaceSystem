@@ -24,7 +24,6 @@ define("port", default=8888, help="run on the given port", type=int)
 #define("server", default='localhost', help="set the host", type=str)
 define("server", default='ec2-50-112-26-56.us-west-2.compute.amazonaws.com', help="set the host", type=str)
 
-
 settings = dict(
                      static_path=os.path.join(os.path.dirname(__file__), "static"),
                      template_path=os.path.join(os.path.dirname(__file__), "templates"),
