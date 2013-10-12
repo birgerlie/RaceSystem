@@ -141,7 +141,7 @@ function RouteManager(opts){
 				distance += wp.distance;
 			};		
 			waypoints.distance = distance;
-			waypoints[waypoints.length -1].name  = 'Finish'
+			// waypoints[waypoints.length -1].name  = 'Finish'
 			return waypoints
 	};
 
